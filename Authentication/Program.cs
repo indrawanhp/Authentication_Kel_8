@@ -4,6 +4,7 @@
     {
         static void MainMenu()
         {
+            Console.Clear();
             Console.WriteLine("==BASIC AUTHENTICATION==");
             Console.WriteLine("1. Create User");
             Console.WriteLine("2. Show User");
@@ -38,20 +39,11 @@
                         break;
                     case 3:
                         Console.Clear();
-                        Console.WriteLine("==CARI AKUN==");
-                        Console.Write("Masukan Nama : ");
-                        String name = Console.ReadLine();
+                        CariAkun();
                         break;
                     case 4:
                         Console.Clear();
-                        Console.WriteLine("LOGIN");
-                        Console.Write("USERNAME : ");
-                        // input username
-                        username.Add(Console.ReadLine());
-
-                        Console.Write("PASSWORD : ");
-                        // input Password
-                        String pass = Console.ReadLine();
+                        LoginUser();
                         break;
                     case 5:
                         Environment.Exit(0);
@@ -98,6 +90,25 @@
                 Console.WriteLine("Password : " + password[i]);
             }
             Console.WriteLine("=============");
+        }
+        static void CariAkun()
+        {
+            Console.WriteLine("==CARI AKUN==");
+            Console.Write("Masukan Nama : ");
+            string name = Console.ReadLine();
+
+        }
+        static void LoginUser ()
+        {
+            Console.WriteLine("LOGIN");
+
+            // input username
+            Console.Write("USERNAME : ");
+            string username = Console.ReadLine();
+
+            // input Password
+            Console.Write("PASSWORD : ");
+            string pass = Console.ReadLine();
         }
     }
 }

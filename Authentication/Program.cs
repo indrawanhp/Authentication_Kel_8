@@ -24,7 +24,6 @@ namespace Authentication
 
                 Console.Write("Input :");
                 int option_menu = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine(option_menu);
 
                 switch (option_menu)
                 {
@@ -109,6 +108,39 @@ namespace Authentication
 
                         break;
 
+                    case 3:
+                        Console.Clear();
+
+                        Console.WriteLine("==CARI AKUN==");
+                        Console.Write("Masukan Nama : ");
+                        string search_name = Console.ReadLine();
+
+                        Console.WriteLine("========================");
+                        Console.WriteLine("ID\t: ");
+                        Console.WriteLine("Name\t: ");
+                        Console.WriteLine("Username: ");
+                        Console.WriteLine("Password: ");
+                        Console.WriteLine("========================");
+
+                        Console.ReadKey(true);
+                        main = true;
+                        break;
+                    case 4:
+                        Console.Clear();
+
+                        Console.WriteLine("==LOGIN==");
+                        Console.Write("USERNAME : ");
+                        string username = Console.ReadLine();
+                        Console.Write("PASSWORD : ");
+                        string password_login = Console.ReadLine();
+
+                        Console.WriteLine("MESSAGE : ");
+                        Console.ReadKey(true);
+                        main = true;
+                        break;
+                    case 5:
+                        Environment.Exit(0);
+                        break;
                     default:
                         break;
                 }

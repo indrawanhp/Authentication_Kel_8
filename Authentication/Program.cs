@@ -87,7 +87,13 @@ namespace Authentication
                         }
                         else if(option_user == 2)
                         {
+                            Console.Write("Id Yang Ingin Dihapus : ");
+                            int id_user_delete = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("User Success to Deleted!!!");
 
+                            Console.ReadKey(true);
+
+                            goto case 2;
                         }
                         else if(option_user == 3)
                         {

@@ -1,4 +1,6 @@
-﻿namespace Authentication
+﻿using System;
+
+namespace Authentication
 {
     class Program
     {
@@ -46,7 +48,7 @@
                             EditUser(first_name, last_name, password);
                         }else if (menu == 2)
                         {
-                            Console.Clear();
+                            DeleteUser(first_name,last_name, password);
                         }else if (menu == 3)
                         {
                             Main(args);
@@ -54,7 +56,7 @@
                         break;
                     case 3:
                         Console.Clear();
-                        CariAkun();
+                        SearchUser(first_name, last_name,password);
                         break;
                     case 4:
                         Console.Clear();
@@ -104,12 +106,6 @@
             }
             Console.WriteLine("=============");
         }
-        static void CariAkun()
-        {
-            Console.WriteLine("==CARI AKUN==");
-            Console.Write("Masukan Nama : ");
-            string name = Console.ReadLine();
-        }
         static void LoginUser ()
         {
             Console.WriteLine("LOGIN");
@@ -124,9 +120,8 @@
         }
         static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
         {
-                
             Console.WriteLine("Id Yang Ingin Di Ubah : ");
-            int cekid = Convert.ToInt32(Console.ReadLine());;
+            int cekid = Convert.ToInt32(Console.ReadLine());
             if (first_name.Count >= cekid)
             {
                 cekid -= 1;
@@ -140,9 +135,51 @@
             }
             else
             {
-                Console.WriteLine("Data Tidak Ditemukan");
+                Console.WriteLine("User Not Found!!!");
             }
             Console.ReadLine();
+        }
+        static void DeleteUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.WriteLine("Id Yang Ingin Di Hapus : ");
+            int cekid = Convert.ToInt32(Console.ReadLine());
+            if (first_name.Count >= cekid)
+            {
+                cekid -= 1;
+                first_name.RemoveAt(cekid);
+                last_name.RemoveAt(cekid);
+                password.RemoveAt(cekid);
+                Console.WriteLine("User Success to Deleted!!!");
+            }
+            else
+            {
+                Console.WriteLine("User Not Found!!!");
+            }
+            Console.ReadLine();
+        }
+        static void SearchUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.WriteLine("==Cari Akun==");
+            Console.Write("Masukan Nama : ");
+            string cekNama = Console.ReadLine();
+            int cekData = 0;
+
+            for(int i = 0; i < first_name.Count; i++)
+            {
+                if(cekNama == first_name[i] || cekNama == last_name[i])
+                {
+                    int id = i + 1;
+                    Console.WriteLine("=============");
+                    Console.WriteLine("ID       : " + id);
+                    Console.WriteLine("Nama     : " + first_name[i] + " " + last_name[i]);
+                    Console.WriteLine("Password : " + password[i]);
+                    cekData = 1;
+                }
+                if (cekData == 0) 
+                {
+                    Console.WriteLine("User Not Found!!!");
+                }
+            }
         }
     }
 }

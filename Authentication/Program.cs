@@ -187,6 +187,33 @@ namespace Authentication
             Console.ReadKey(true);
         }
 
+        static void LoginUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.Clear();
+
+            Console.WriteLine("==LOGIN==");
+            Console.Write("USERNAME : ");
+            string username_login = Console.ReadLine();
+            Console.Write("PASSWORD : ");
+            string password_login = Console.ReadLine();
+
+            for(int i = 0; i < first_name.Count; i++)
+            {
+                string username = first_name[i].Substring(0,2) + last_name[i].Substring(0,2);
+                if (username_login.Contains(username) && password_login.Contains(password[i].ToString()))
+                {
+                    Console.WriteLine("Login Success!");
+                    Console.ReadKey(true);
+                }
+                else
+                {
+                    Console.WriteLine("User is not exist or username and password doesnt match!");
+                    Console.ReadKey(true);
+                }
+            }
+            
+        }
+
         static void Messages(string message)
         {
             Console.WriteLine($"User Success to {message} !!!");
@@ -245,34 +272,13 @@ namespace Authentication
                                 }
                             }
                             break;
-
                         case 3:
                             Console.Clear();
-
                             SearchUser(first_name, last_name, password);
-                            
-
-                            //Console.WriteLine("========================");
-                            //Console.WriteLine("ID\t: ");
-                            //Console.WriteLine("Name\t: ");
-                            //Console.WriteLine("Username: ");
-                            //Console.WriteLine("Password: ");
-                            //Console.WriteLine("========================");
-
-                            Console.ReadKey(true);
                             main = true;
                             break;
                         case 4:
-                            Console.Clear();
-
-                            Console.WriteLine("==LOGIN==");
-                            Console.Write("USERNAME : ");
-                            string username_login = Console.ReadLine();
-                            Console.Write("PASSWORD : ");
-                            string password_login = Console.ReadLine();
-
-                            Console.WriteLine("MESSAGE : ");
-                            Console.ReadKey(true);
+                            LoginUser(first_name, last_name, password);
                             main = true;
                             break;
                         case 5:

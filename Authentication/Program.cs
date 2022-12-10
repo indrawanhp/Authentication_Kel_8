@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Authentication
 {
@@ -42,7 +43,7 @@ namespace Authentication
                 else
                 {
                     Console.WriteLine("Password must have at least 8 characters \nwith at least one Capital letter, at least one lower case letter and at least one number.");
-                    Console.WriteLine("Password : ");
+                    Console.Write("Password : ");
                     password = Console.ReadLine();
                     flag = true;
                 }
@@ -51,28 +52,86 @@ namespace Authentication
             return password;
         }
 
-        static void Create()
+        static void Create(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.Clear();
 
             Console.Write("First Name\t: ");
-            string first_name = NameAuth(Console.ReadLine());
+            first_name.Add(NameAuth(Console.ReadLine()));
 
             Console.Write("Last Name\t: ");
-            string last_name = NameAuth(Console.ReadLine());
+            last_name.Add(NameAuth(Console.ReadLine()));
 
             Console.Write("Password\t: ");
-            string password = PasswordAuth(Console.ReadLine());
+            password.Add(PasswordAuth(Console.ReadLine()));
 
             Console.WriteLine("User Success to Created!!!");
 
             Console.ReadKey(true);
+
+            Messages("Created");
         }
+
+        static void View(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.WriteLine("==SHOW USER==");
+
+            int id = 0;
+            for(int i = 0; i < first_name.Count; i++)
+            {
+                id++;
+                Console.WriteLine("========================");
+                Console.WriteLine($"ID\t: {id}");
+                Console.WriteLine($"Name\t: {first_name[i]} {last_name[i]}");
+                Console.WriteLine($"Username: {first_name[i].ToString().Substring(0, 2)}{last_name[i].ToString().Substring(0, 2)}");
+                Console.WriteLine($"Password: {password[i]}");
+                Console.WriteLine("========================");
+            }
+        }
+
+        static void ShowUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.Clear();
+
+            View(first_name, last_name, password);
+
+            Console.WriteLine("\nMenu");
+            Console.WriteLine("1. Edit User");
+            Console.WriteLine("2. Delete User");
+            Console.WriteLine("3. Back");
+
+            
+        }
+
+        static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.Write("Id Yang Ingin Diubah : ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("First Name : ");
+            first_name[id - 1] = Console.ReadLine();
+
+            Console.Write("Last Name : ");
+            last_name[id - 1] = Console.ReadLine();
+
+            Console.Write("Password : ");
+            password[id - 1] = Console.ReadLine();
+
+            Messages("Edited");
+            
+        }
+
+        static string Messages(string message) => $"User Succes to {message} !!!";
 
         static void Main(string[] args)
         {
+            List<string> first_name = new List<string>();
+            List<string> last_name = new List<string>();
+            List<string> username = new List<string>();
+            List<string> password = new List<string>();
+
             bool main = true;
-            while(main)
+            while (main)
             {
                 MainMenu();
 
@@ -84,44 +143,21 @@ namespace Authentication
                     switch (option_menu)
                     {
                         case 1:
-                            Create();
+                            Create(first_name, last_name, username, password);
                             break;
                         case 2:
-                            main = false;
-                            Console.Clear();
-                            Console.WriteLine("==SHOW USER==");
-                            Console.WriteLine("========================");
-                            Console.WriteLine("ID\t: ");
-                            Console.WriteLine("Name\t: ");
-                            Console.WriteLine("Username: ");
-                            Console.WriteLine("Password: ");
-                            Console.WriteLine("========================");
-
-                            Console.WriteLine("\nMenu");
-                            Console.WriteLine("1. Edit User");
-                            Console.WriteLine("2. Delete User");
-                            Console.WriteLine("3. Back");
+                            ShowUser(first_name, last_name, password);
 
                             int option_user = Convert.ToInt32(Console.ReadLine());
                             if (option_user == 1)
                             {
-                                Console.Write("Id Yang Ingin Diubah : ");
-                                int id_user = Convert.ToInt32(Console.ReadLine());
-
-                                Console.Write("First Name : ");
-                                string first_name_edit = Console.ReadLine();
-
-                                Console.Write("Last Name : ");
-                                string last_name_edit = Console.ReadLine();
-
-                                Console.Write("Password : ");
-                                string password_edit = Console.ReadLine();
+                                EditUser(first_name, last_name, password);
 
                                 Console.WriteLine("User Success to Edited!!!");
 
                                 Console.ReadKey(true);
 
-                                goto case 2;
+                                ShowUser(first_name, last_name, password);
                             }
                             else if (option_user == 2)
                             {
@@ -131,7 +167,7 @@ namespace Authentication
 
                                 Console.ReadKey(true);
 
-                                goto case 2;
+                                ShowUser(first_name, last_name, password);
                             }
                             else if (option_user == 3)
                             {
@@ -142,9 +178,8 @@ namespace Authentication
                                 Console.WriteLine("ERROR : Input Not Valid");
 
                                 Console.ReadKey(true);
-                                goto case 2;
+                                ShowUser(first_name, last_name, password);
                             }
-
                             break;
 
                         case 3:
@@ -169,7 +204,7 @@ namespace Authentication
 
                             Console.WriteLine("==LOGIN==");
                             Console.Write("USERNAME : ");
-                            string username = Console.ReadLine();
+                            string username_login = Console.ReadLine();
                             Console.Write("PASSWORD : ");
                             string password_login = Console.ReadLine();
 
@@ -189,17 +224,16 @@ namespace Authentication
                             break;
                     }
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Console.WriteLine("ERROR : Input Not Valid");
 
                     Console.ReadKey(true);
 
-                    main= true;
+                    main = true;
                 }
-                
+
             }
-            
         }
     }
 }

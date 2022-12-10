@@ -65,11 +65,8 @@ namespace Authentication
             Console.Write("Password\t: ");
             password.Add(PasswordAuth(Console.ReadLine()));
 
-            Console.WriteLine("User Success to Created!!!");
-
-            Console.ReadKey(true);
-
             Messages("Created");
+            Console.ReadKey(true);
         }
 
         static void View(List<string> first_name, List<string> last_name, List<string> password)
@@ -105,23 +102,73 @@ namespace Authentication
 
         static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
         {
-            Console.Write("Id Yang Ingin Diubah : ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            bool flag = true;
+            do
+            {
+                Console.Write("Id Yang Ingin Diubah : ");
+                int id = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("First Name : ");
-            first_name[id - 1] = Console.ReadLine();
+                if(id <= first_name.Count)
+                {
+                    Console.Write("First Name : ");
+                    first_name[id - 1] = NameAuth(Console.ReadLine());
 
-            Console.Write("Last Name : ");
-            last_name[id - 1] = Console.ReadLine();
+                    Console.Write("Last Name : ");
+                    last_name[id - 1] = NameAuth(Console.ReadLine());
 
-            Console.Write("Password : ");
-            password[id - 1] = Console.ReadLine();
+                    Console.Write("Password : ");
+                    password[id - 1] = PasswordAuth(Console.ReadLine());
 
-            Messages("Edited");
+                    Messages("Edited");
+
+                    Console.ReadKey();
+
+                    flag = false;
+                }
+                else
+                {
+                    Console.WriteLine("User Not Found!!!");
+                    flag = true;
+                }
+            }
+            while (flag);
+            
             
         }
 
-        static string Messages(string message) => $"User Succes to {message} !!!";
+        static void DeleteUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            bool flag = true;
+            do
+            {
+                Console.Write("Id Yang Ingin Dihapus : ");
+                int id = Convert.ToInt32(Console.ReadLine());
+
+                if (id <= first_name.Count)
+                {
+                    first_name.RemoveAt(id - 1);
+                    last_name.RemoveAt(id - 1);
+                    password.RemoveAt(id - 1);
+
+                    Messages("Deleted");
+
+                    Console.ReadKey();
+
+                    flag = false;
+                }
+                else
+                {
+                    Console.WriteLine("User Not Found!!!");
+                    flag = true;
+                }
+            }
+            while (flag);
+        }
+
+        static void Messages(string message)
+        {
+            Console.WriteLine($"User Success to {message} !!!");
+        }
 
         static void Main(string[] args)
         {
@@ -146,39 +193,35 @@ namespace Authentication
                             Create(first_name, last_name, username, password);
                             break;
                         case 2:
-                            ShowUser(first_name, last_name, password);
 
-                            int option_user = Convert.ToInt32(Console.ReadLine());
-                            if (option_user == 1)
+                            bool flag = true;
+                            while(flag)
                             {
-                                EditUser(first_name, last_name, password);
-
-                                Console.WriteLine("User Success to Edited!!!");
-
-                                Console.ReadKey(true);
-
                                 ShowUser(first_name, last_name, password);
-                            }
-                            else if (option_user == 2)
-                            {
-                                Console.Write("Id Yang Ingin Dihapus : ");
-                                int id_user_delete = Convert.ToInt32(Console.ReadLine());
-                                Console.WriteLine("User Success to Deleted!!!");
 
-                                Console.ReadKey(true);
+                                int option_user = Convert.ToInt32(Console.ReadLine());
+                                if (option_user == 1)
+                                {
+                                    EditUser(first_name, last_name, password);
+                                    flag = true;
+                                }
+                                else if (option_user == 2)
+                                {
+                                    DeleteUser(first_name, last_name, password);
+                                    flag = true;
+                                }
+                                else if (option_user == 3)
+                                {
+                                    flag = false;
+                                    main = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ERROR : Input Not Valid");
 
-                                ShowUser(first_name, last_name, password);
-                            }
-                            else if (option_user == 3)
-                            {
-                                main = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("ERROR : Input Not Valid");
-
-                                Console.ReadKey(true);
-                                ShowUser(first_name, last_name, password);
+                                    Console.ReadKey(true);
+                                    ShowUser(first_name, last_name, password);
+                                }
                             }
                             break;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Authentication
 {
@@ -52,7 +53,7 @@ namespace Authentication
             return password;
         }
 
-        static void Create(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
+        static void Create(List<string> first_name, List<string> last_name, List<string> password)
         {
             Console.Clear();
 
@@ -121,7 +122,7 @@ namespace Authentication
 
                     Messages("Edited");
 
-                    Console.ReadKey();
+                    Console.ReadKey(true);
 
                     flag = false;
                 }
@@ -152,7 +153,7 @@ namespace Authentication
 
                     Messages("Deleted");
 
-                    Console.ReadKey();
+                    Console.ReadKey(true);
 
                     flag = false;
                 }
@@ -165,6 +166,27 @@ namespace Authentication
             while (flag);
         }
 
+        static void SearchUser(List<string> first_name, List<string> last_name, List<string> password)
+        {
+            Console.WriteLine("==CARI AKUN==");
+            Console.Write("Masukan Nama : ");
+            string name = Console.ReadLine();
+
+            for(int i = 0; i < first_name.Count; i++)
+            {
+                if (first_name[i].ToLower().Contains(name.ToLower()) || last_name[i].ToLower().Contains(name.ToLower()))
+                {
+                    Console.WriteLine("========================");
+                    Console.WriteLine($"ID\t: {i + 1}");
+                    Console.WriteLine($"Name\t: {first_name[i]} {last_name[i]}");
+                    Console.WriteLine($"Username: " + first_name.ToString().Substring(0,2) + last_name.ToString().Substring(0, 2));
+                    Console.WriteLine($"Password: {password[i]}");
+                    Console.WriteLine("========================");
+                }
+            }
+            Console.ReadKey(true);
+        }
+
         static void Messages(string message)
         {
             Console.WriteLine($"User Success to {message} !!!");
@@ -174,7 +196,6 @@ namespace Authentication
         {
             List<string> first_name = new List<string>();
             List<string> last_name = new List<string>();
-            List<string> username = new List<string>();
             List<string> password = new List<string>();
 
             bool main = true;
@@ -190,7 +211,7 @@ namespace Authentication
                     switch (option_menu)
                     {
                         case 1:
-                            Create(first_name, last_name, username, password);
+                            Create(first_name, last_name, password);
                             break;
                         case 2:
 
@@ -220,7 +241,7 @@ namespace Authentication
                                     Console.WriteLine("ERROR : Input Not Valid");
 
                                     Console.ReadKey(true);
-                                    ShowUser(first_name, last_name, password);
+                                    flag = true;
                                 }
                             }
                             break;
@@ -228,16 +249,15 @@ namespace Authentication
                         case 3:
                             Console.Clear();
 
-                            Console.WriteLine("==CARI AKUN==");
-                            Console.Write("Masukan Nama : ");
-                            string search_name = Console.ReadLine();
+                            SearchUser(first_name, last_name, password);
+                            
 
-                            Console.WriteLine("========================");
-                            Console.WriteLine("ID\t: ");
-                            Console.WriteLine("Name\t: ");
-                            Console.WriteLine("Username: ");
-                            Console.WriteLine("Password: ");
-                            Console.WriteLine("========================");
+                            //Console.WriteLine("========================");
+                            //Console.WriteLine("ID\t: ");
+                            //Console.WriteLine("Name\t: ");
+                            //Console.WriteLine("Username: ");
+                            //Console.WriteLine("Password: ");
+                            //Console.WriteLine("========================");
 
                             Console.ReadKey(true);
                             main = true;

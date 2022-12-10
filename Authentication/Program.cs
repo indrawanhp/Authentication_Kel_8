@@ -127,7 +127,7 @@
                 
             Console.WriteLine("Id Yang Ingin Di Ubah : ");
             int cekid = Convert.ToInt32(Console.ReadLine());;
-            if (first_name.Count == cekid)
+            if (first_name.Count >= cekid)
             {
                 cekid -= 1;
                 Console.WriteLine("First Name : ");

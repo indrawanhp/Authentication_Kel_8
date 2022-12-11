@@ -159,12 +159,11 @@
             {
                 if (user == username[i])
                 {
-                    index= i;
+                    index = i;
                     usernm = true;
                     if(pass == password[index])
                     {
                         pw = true;
-
                     }
                 }
             }

@@ -53,15 +53,20 @@ namespace Authentication
             return password;
         }
 
-        static void Create(List<string> first_name, List<string> last_name, List<string> password)
+        static void Create(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.Clear();
 
             Console.Write("First Name\t: ");
-            first_name.Add(NameAuth(Console.ReadLine()));
+            string first = Console.ReadLine();
+            first_name.Add(NameAuth(first));
 
             Console.Write("Last Name\t: ");
-            last_name.Add(NameAuth(Console.ReadLine()));
+            string second = Console.ReadLine();
+            last_name.Add(NameAuth(second));
+
+            string combine = first.Substring(0,2) + second.Substring(0,2);
+            username.Add(combine);
 
             Console.Write("Password\t: ");
             password.Add(PasswordAuth(Console.ReadLine()));
@@ -70,7 +75,7 @@ namespace Authentication
             Console.ReadKey(true);
         }
 
-        static void View(List<string> first_name, List<string> last_name, List<string> password)
+        static void View(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.WriteLine("==SHOW USER==");
 
@@ -81,17 +86,17 @@ namespace Authentication
                 Console.WriteLine("========================");
                 Console.WriteLine($"ID\t: {id}");
                 Console.WriteLine($"Name\t: {first_name[i]} {last_name[i]}");
-                Console.WriteLine($"Username: {first_name[i].ToString().Substring(0, 2)}{last_name[i].ToString().Substring(0, 2)}");
+                Console.WriteLine($"Username: {username[i]}");
                 Console.WriteLine($"Password: {password[i]}");
                 Console.WriteLine("========================");
             }
         }
 
-        static void ShowUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void ShowUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.Clear();
 
-            View(first_name, last_name, password);
+            View(first_name, last_name, username, password);
 
             Console.WriteLine("\nMenu");
             Console.WriteLine("1. Edit User");
@@ -101,7 +106,7 @@ namespace Authentication
             
         }
 
-        static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void EditUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             bool flag = true;
             do
@@ -112,10 +117,14 @@ namespace Authentication
                 if(id <= first_name.Count)
                 {
                     Console.Write("First Name : ");
-                    first_name[id - 1] = NameAuth(Console.ReadLine());
+                    string first = Console.ReadLine();
+                    first_name[id - 1] = NameAuth(first);
 
                     Console.Write("Last Name : ");
-                    last_name[id - 1] = NameAuth(Console.ReadLine());
+                    string second = Console.ReadLine();
+                    last_name[id - 1] = NameAuth(second);
+
+                    username[id - 1] = first.Substring(0,2) + second.Substring(0,2);
 
                     Console.Write("Password : ");
                     password[id - 1] = PasswordAuth(Console.ReadLine());
@@ -137,7 +146,7 @@ namespace Authentication
             
         }
 
-        static void DeleteUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void DeleteUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             bool flag = true;
             do
@@ -149,6 +158,7 @@ namespace Authentication
                 {
                     first_name.RemoveAt(id - 1);
                     last_name.RemoveAt(id - 1);
+                    username.RemoveAt(id - 1);
                     password.RemoveAt(id - 1);
 
                     Messages("Deleted");
@@ -166,7 +176,7 @@ namespace Authentication
             while (flag);
         }
 
-        static void SearchUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void SearchUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.WriteLine("==CARI AKUN==");
             Console.Write("Masukan Nama : ");
@@ -179,7 +189,7 @@ namespace Authentication
                     Console.WriteLine("========================");
                     Console.WriteLine($"ID\t: {i + 1}");
                     Console.WriteLine($"Name\t: {first_name[i]} {last_name[i]}");
-                    Console.WriteLine($"Username: " + first_name[i].ToString().Substring(0,2) + last_name[i].ToString().Substring(0, 2));
+                    Console.WriteLine($"Username: {username[i]}");
                     Console.WriteLine($"Password: {password[i]}");
                     Console.WriteLine("========================");
                 }
@@ -187,7 +197,7 @@ namespace Authentication
             Console.ReadKey(true);
         }
 
-        static void LoginUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void LoginUser(List<string> username, List<string> password)
         {
             Console.Clear();
 
@@ -197,10 +207,9 @@ namespace Authentication
             Console.Write("PASSWORD : ");
             string password_login = Console.ReadLine();
 
-            for(int i = 0; i < first_name.Count; i++)
+            for(int i = 0; i < username.Count; i++)
             {
-                string username = first_name[i].Substring(0,2) + last_name[i].Substring(0,2);
-                if (username_login.Equals(username) && password_login.Equals(password[i].ToString()))
+                if (username_login.Equals(username[i]) && password_login.Equals(password[i].ToString()))
                 {
                     Console.WriteLine("MESSAGE : Login Success!");
                     
@@ -223,6 +232,7 @@ namespace Authentication
         {
             List<string> first_name = new List<string>();
             List<string> last_name = new List<string>();
+            List<string> username = new List<string>();
             List<string> password = new List<string>();
 
             bool main = true;
@@ -238,24 +248,24 @@ namespace Authentication
                     switch (option_menu)
                     {
                         case 1:
-                            Create(first_name, last_name, password);
+                            Create(first_name, last_name, username, password);
                             break;
                         case 2:
 
                             bool flag = true;
                             while(flag)
                             {
-                                ShowUser(first_name, last_name, password);
+                                ShowUser(first_name, last_name, username, password);
 
                                 int option_user = Convert.ToInt32(Console.ReadLine());
                                 if (option_user == 1)
                                 {
-                                    EditUser(first_name, last_name, password);
+                                    EditUser(first_name, last_name, username, password);
                                     flag = true;
                                 }
                                 else if (option_user == 2)
                                 {
-                                    DeleteUser(first_name, last_name, password);
+                                    DeleteUser(first_name, last_name, username, password);
                                     flag = true;
                                 }
                                 else if (option_user == 3)
@@ -274,11 +284,11 @@ namespace Authentication
                             break;
                         case 3:
                             Console.Clear();
-                            SearchUser(first_name, last_name, password);
+                            SearchUser(first_name, last_name, username, password);
                             main = true;
                             break;
                         case 4:
-                            LoginUser(first_name, last_name, password);
+                            LoginUser(username, password);
                             main = true;
                             break;
                         case 5:

@@ -147,15 +147,40 @@
         }
         static void LoginUser(List<string> username, List<string> password)
         {
+            bool usernm = false;
+            bool pw = false;
+            int index;
             Console.WriteLine("LOGIN");
 
             // input username
             Console.Write("USERNAME : ");
-            string usernm = Console.ReadLine();
+            string user = Console.ReadLine();
 
             // input Password
             Console.Write("PASSWORD : ");
             string pass = Console.ReadLine();
+            for (int i = 0; i < username.Count; i++)
+            {
+                if (user == username[i])
+                {
+                    index= i;
+                    usernm = true;
+                    if(pass == password[index])
+                    {
+                        pw = true;
+
+                    }
+                }
+            }
+            if(usernm && pw)
+            {
+                Console.WriteLine("login Success!!!");
+            }
+            else
+            {
+                Console.WriteLine("Username / Password Salah!!!");
+            }
+
         }
         static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
         {
@@ -215,10 +240,11 @@
                     Console.WriteLine("Password : " + password[i]);
                     cekData = 1;
                 }
-                if (cekData == 0)
-                {
-                    Console.WriteLine("User Not Found!!!");
-                }
+            }
+
+            if (cekData == 0)
+            {
+                Console.WriteLine("User Not Found!!!");
             }
         }
         static int cekPassword(string pass)

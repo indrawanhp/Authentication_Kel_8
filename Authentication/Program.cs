@@ -193,18 +193,17 @@ namespace Authentication
             for(int i = 0; i < first_name.Count; i++)
             {
                 string username = first_name[i].Substring(0,2) + last_name[i].Substring(0,2);
-                if (username_login.Contains(username) && password_login.Contains(password[i].ToString()))
+                if (username_login.Equals(username) && password_login.Equals(password[i].ToString()))
                 {
-                    Console.WriteLine("Login Success!");
-                    Console.ReadKey(true);
+                    Console.WriteLine("MESSAGE : Login Success!");
                 }
                 else
                 {
                     Console.WriteLine("User is not exist or username and password doesnt match!");
-                    Console.ReadKey(true);
+                    
                 }
             }
-            
+            Console.ReadKey(true);
         }
 
         static void Messages(string message)

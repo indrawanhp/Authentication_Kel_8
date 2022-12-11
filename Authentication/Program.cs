@@ -37,7 +37,7 @@ namespace Authentication
             bool flag = true;
             do
             {
-                if(password.Length > 7 && password.Any<char>(new Func<char, bool>(char.IsUpper)) && password.Any<char>(new Func<char, bool>(char.IsLower)) && password.Any<char>(new Func<char, bool>(char.IsNumber)))
+                if(password.Length > 7 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsNumber))
                 {
                     flag = false;
                 }

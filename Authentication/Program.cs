@@ -19,7 +19,7 @@
             List<string> last_name = new List<string>();
             List<string> username = new List<string>();
             List<string> password = new List<string>();
-            int input2;
+            int ulang = 0;
             do
             {
                 MainMenu();
@@ -51,7 +51,7 @@
                         }
                         else if (menu == 3)
                         {
-                            input2 = 2;
+                            Console.WriteLine("Press enter to continue!");
                         }
                         break;
                     case 3:
@@ -69,12 +69,8 @@
                         Console.WriteLine();
                         break;
                 }
-                Console.WriteLine("Kembali Ke Home?");
-                Console.WriteLine("1. Ya");
-                Console.WriteLine("2. tidak");
-                Console.Write("Masukan Pilihan : ");
-                input2 = Convert.ToInt32(Console.ReadLine());
-            } while (input2 != 2);
+                Console.ReadLine();
+            } while (ulang != 1);
         }
         static void InputUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
@@ -127,7 +123,7 @@
                 }
 
             } while (legalPass != 2);
-
+            Console.WriteLine("User Success to Created!!!");
 
         }
         static void TampilUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
@@ -178,7 +174,7 @@
             }
             else
             {
-                Console.WriteLine("Username / Password Salah!!!");
+                Console.WriteLine("MESSAGE : Username atau Password Tidak Ditemukan");
             }
 
         }
@@ -189,11 +185,11 @@
             if (first_name.Count >= cekid)
             {
                 cekid -= 1;
-                Console.WriteLine("First Name : ");
+                Console.Write("First Name : ");
                 first_name[cekid] = (Console.ReadLine());
-                Console.WriteLine("Last Name : ");
+                Console.Write("Last Name : ");
                 last_name[cekid] = (Console.ReadLine());
-                Console.WriteLine("Password : ");
+                Console.Write("Password : ");
                 password[cekid] = (Console.ReadLine());
                 Console.WriteLine("User Success to Edited!!!");
             }
@@ -201,7 +197,6 @@
             {
                 Console.WriteLine("User Not Found!!!");
             }
-            Console.ReadLine();
         }
         static void DeleteUser(List<string> first_name, List<string> last_name, List<string> password)
         {
@@ -219,7 +214,6 @@
             {
                 Console.WriteLine("User Not Found!!!");
             }
-            Console.ReadLine();
         }
         static void SearchUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
@@ -238,6 +232,7 @@
                     Console.WriteLine("Nama     : " + first_name[i] + " " + last_name[i]);
                     Console.WriteLine("Username : " + username[i]);
                     Console.WriteLine("Password : " + password[i]);
+                    Console.WriteLine("=============");
                     cekData = 1;
                 }
             }

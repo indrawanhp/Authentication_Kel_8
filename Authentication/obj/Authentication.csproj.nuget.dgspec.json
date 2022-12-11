@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\MII\\Bootcamp\\Materi\\Basic Programming\\Authentication\\Authentication\\Authentication.csproj": {}
+    "E:\\MCC\\Fundamental\\Basic_Programming\\Basic_Programming\\Authentication_Kel_8\\Authentication\\Authentication.csproj": {}
   },
   "projects": {
-    "D:\\Work\\MII\\Bootcamp\\Materi\\Basic Programming\\Authentication\\Authentication\\Authentication.csproj": {
+    "E:\\MCC\\Fundamental\\Basic_Programming\\Basic_Programming\\Authentication_Kel_8\\Authentication\\Authentication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\MII\\Bootcamp\\Materi\\Basic Programming\\Authentication\\Authentication\\Authentication.csproj",
+        "projectUniqueName": "E:\\MCC\\Fundamental\\Basic_Programming\\Basic_Programming\\Authentication_Kel_8\\Authentication\\Authentication.csproj",
         "projectName": "Authentication",
-        "projectPath": "D:\\Work\\MII\\Bootcamp\\Materi\\Basic Programming\\Authentication\\Authentication\\Authentication.csproj",
-        "packagesPath": "C:\\Users\\Acer-PC\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\MII\\Bootcamp\\Materi\\Basic Programming\\Authentication\\Authentication\\obj\\",
+        "projectPath": "E:\\MCC\\Fundamental\\Basic_Programming\\Basic_Programming\\Authentication_Kel_8\\Authentication\\Authentication.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "E:\\MCC\\Fundamental\\Basic_Programming\\Basic_Programming\\Authentication_Kel_8\\Authentication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Acer-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

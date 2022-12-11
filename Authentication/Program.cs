@@ -103,86 +103,70 @@ namespace Authentication
 
         static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
         {
-            bool flag = true;
-            do
+            Console.WriteLine("Id Yang Ingin Di Ubah : ");
+            int cekid = Convert.ToInt32(Console.ReadLine());
+            if (first_name.Count >= cekid)
             {
-                Console.Write("Id Yang Ingin Diubah : ");
-                int id = Convert.ToInt32(Console.ReadLine());
-
-                if(id <= first_name.Count)
-                {
-                    Console.Write("First Name : ");
-                    first_name[id - 1] = NameAuth(Console.ReadLine());
-
-                    Console.Write("Last Name : ");
-                    last_name[id - 1] = NameAuth(Console.ReadLine());
-
-                    Console.Write("Password : ");
-                    password[id - 1] = PasswordAuth(Console.ReadLine());
-
-                    Messages("Edited");
-
-                    Console.ReadKey(true);
-
-                    flag = false;
-                }
-                else
-                {
-                    Console.WriteLine("User Not Found!!!");
-                    flag = true;
-                }
+                cekid -= 1;
+                Console.Write("First Name : ");
+                first_name[cekid] = (Console.ReadLine());
+                Console.Write("Last Name : ");
+                last_name[cekid] = (Console.ReadLine());
+                Console.Write("Password : ");
+                password[cekid] = (Console.ReadLine());
+                Console.WriteLine("User Success to Edited!!!");
             }
-            while (flag);
-            
-            
+            else
+            {
+                Console.WriteLine("User Not Found!!!");
+            }
+            Console.ReadKey(true);
         }
 
         static void DeleteUser(List<string> first_name, List<string> last_name, List<string> password)
         {
-            bool flag = true;
-            do
+            Console.WriteLine("Id Yang Ingin Di Hapus : ");
+            int cekid = Convert.ToInt32(Console.ReadLine());
+            if (first_name.Count >= cekid)
             {
-                Console.Write("Id Yang Ingin Dihapus : ");
-                int id = Convert.ToInt32(Console.ReadLine());
-
-                if (id <= first_name.Count)
-                {
-                    first_name.RemoveAt(id - 1);
-                    last_name.RemoveAt(id - 1);
-                    password.RemoveAt(id - 1);
-
-                    Messages("Deleted");
-
-                    Console.ReadKey(true);
-
-                    flag = false;
-                }
-                else
-                {
-                    Console.WriteLine("User Not Found!!!");
-                    flag = true;
-                }
+                cekid -= 1;
+                first_name.RemoveAt(cekid);
+                last_name.RemoveAt(cekid);
+                password.RemoveAt(cekid);
+                Console.WriteLine("User Success to Deleted!!!");
             }
-            while (flag);
+            else
+            {
+                Console.WriteLine("User Not Found!!!");
+            }
+            Console.ReadKey(true);
         }
 
         static void SearchUser(List<string> first_name, List<string> last_name, List<string> password)
         {
-            Console.WriteLine("==CARI AKUN==");
+            Console.WriteLine("==Cari Akun==");
             Console.Write("Masukan Nama : ");
-            string name = Console.ReadLine();
+            string cekNama = Console.ReadLine();
+            int cekData = 0;
 
-            for(int i = 0; i < first_name.Count; i++)
+            for (int i = 0; i < first_name.Count; i++)
             {
-                if (first_name[i].ToLower().Contains(name.ToLower()) || last_name[i].ToLower().Contains(name.ToLower()))
+                if (cekNama == first_name[i] || cekNama == last_name[i])
                 {
-                    Console.WriteLine("========================");
-                    Console.WriteLine($"ID\t: {i + 1}");
-                    Console.WriteLine($"Name\t: {first_name[i]} {last_name[i]}");
-                    Console.WriteLine($"Username: " + first_name.ToString().Substring(0,2) + last_name.ToString().Substring(0, 2));
-                    Console.WriteLine($"Password: {password[i]}");
-                    Console.WriteLine("========================");
+                    int id = i + 1;
+                    Console.WriteLine("=============");
+                    Console.WriteLine("ID       : " + id);
+                    Console.WriteLine("Nama     : " + first_name[i] + " " + last_name[i]);
+                    Console.WriteLine("Username : " + first_name.ToString().Substring(0, 2) + last_name.ToString().Substring(0, 2));
+                    Console.WriteLine("Password : " + password[i]);
+                    Console.WriteLine("=============");
+                    cekData = 1;
                 }
+            }
+
+            if (cekData == 0)
+            {
+                Console.WriteLine("User Not Found!!!");
             }
             Console.ReadKey(true);
         }

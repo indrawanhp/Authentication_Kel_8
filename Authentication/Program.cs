@@ -179,7 +179,7 @@ namespace Authentication
                     Console.WriteLine("========================");
                     Console.WriteLine($"ID\t: {i + 1}");
                     Console.WriteLine($"Name\t: {first_name[i]} {last_name[i]}");
-                    Console.WriteLine($"Username: " + first_name.ToString().Substring(0,2) + last_name.ToString().Substring(0, 2));
+                    Console.WriteLine($"Username: " + first_name[i].ToString().Substring(0,2) + last_name[i].ToString().Substring(0, 2));
                     Console.WriteLine($"Password: {password[i]}");
                     Console.WriteLine("========================");
                 }
@@ -202,16 +202,16 @@ namespace Authentication
                 string username = first_name[i].Substring(0,2) + last_name[i].Substring(0,2);
                 if (username_login.Contains(username) && password_login.Contains(password[i].ToString()))
                 {
-                    Console.WriteLine("Login Success!");
-                    Console.ReadKey(true);
+                    Console.WriteLine("MESSAGE : Login Success!");
+                    
                 }
                 else
                 {
                     Console.WriteLine("User is not exist or username and password doesnt match!");
-                    Console.ReadKey(true);
                 }
             }
-            
+            Console.ReadKey(true);
+
         }
 
         static void Messages(string message)

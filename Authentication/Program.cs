@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 namespace Authentication
 {
@@ -103,23 +104,31 @@ namespace Authentication
 
         static void EditUser(List<string> first_name, List<string> last_name, List<string> password)
         {
-            Console.WriteLine("Id Yang Ingin Di Ubah : ");
-            int cekid = Convert.ToInt32(Console.ReadLine());
-            if (first_name.Count >= cekid)
+            bool flag = true;
+            do
             {
-                cekid -= 1;
-                Console.Write("First Name : ");
-                first_name[cekid] = (Console.ReadLine());
-                Console.Write("Last Name : ");
-                last_name[cekid] = (Console.ReadLine());
-                Console.Write("Password : ");
-                password[cekid] = (Console.ReadLine());
-                Console.WriteLine("User Success to Edited!!!");
-            }
-            else
-            {
-                Console.WriteLine("User Not Found!!!");
-            }
+
+                Console.WriteLine("Id Yang Ingin Di Ubah : ");
+                int cekid = Convert.ToInt32(Console.ReadLine());
+                if (first_name.Count >= cekid)
+                {
+                    cekid -= 1;
+                    Console.Write("First Name : ");
+                    first_name[cekid] = NameAuth(Console.ReadLine());
+                    Console.Write("Last Name : ");
+                    last_name[cekid] = NameAuth(Console.ReadLine());
+                    Console.Write("Password : ");
+                    password[cekid] = PasswordAuth(Console.ReadLine());
+                    Console.WriteLine("User Success to Edited!!!");
+                    flag = false;
+                }
+                else
+                {
+                    Console.WriteLine("User Not Found!!!");
+                }
+            } while (flag);
+
+
             Console.ReadKey(true);
         }
 
@@ -151,13 +160,13 @@ namespace Authentication
 
             for (int i = 0; i < first_name.Count; i++)
             {
-                if (cekNama == first_name[i] || cekNama == last_name[i])
+                if (first_name[i].ToLower().Contains(cekNama.ToLower()) || last_name[i].ToLower().Contains(cekNama.ToLower()))
                 {
                     int id = i + 1;
                     Console.WriteLine("=============");
                     Console.WriteLine("ID       : " + id);
                     Console.WriteLine("Nama     : " + first_name[i] + " " + last_name[i]);
-                    Console.WriteLine("Username : " + first_name.ToString().Substring(0, 2) + last_name.ToString().Substring(0, 2));
+                    Console.WriteLine("Username : " + first_name[i].ToString().Substring(0, 2) + last_name[i].ToString().Substring(0, 2));
                     Console.WriteLine("Password : " + password[i]);
                     Console.WriteLine("=============");
                     cekData = 1;

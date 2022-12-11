@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Authentication
+﻿namespace Authentication
 {
     class Program
     {
@@ -32,11 +30,11 @@ namespace Authentication
                     case 1:
                         Console.Clear();
                         Console.WriteLine();
-                        InputUser( first_name, last_name, password);
+                        InputUser(first_name, last_name, password);
                         break;
                     case 2:
                         Console.Clear();
-                        TampilUser( first_name, last_name, password);
+                        TampilUser(first_name, last_name, password);
                         Console.WriteLine();
                         Console.WriteLine("Menu");
                         Console.WriteLine("1. Edit User");
@@ -46,21 +44,23 @@ namespace Authentication
                         if (menu == 1)
                         {
                             EditUser(first_name, last_name, password);
-                        }else if (menu == 2)
+                        }
+                        else if (menu == 2)
                         {
-                            DeleteUser(first_name,last_name, password);
-                        }else if (menu == 3)
+                            DeleteUser(first_name, last_name, password);
+                        }
+                        else if (menu == 3)
                         {
-                            Main(args);
+                            input2 = 2;
                         }
                         break;
                     case 3:
                         Console.Clear();
-                        SearchUser(first_name, last_name,password);
+                        SearchUser(first_name, last_name, password);
                         break;
                     case 4:
                         Console.Clear();
-                        LoginUser();
+                        LoginUser(username, password);
                         break;
                     case 5:
                         Environment.Exit(0);
@@ -78,6 +78,9 @@ namespace Authentication
         }
         static void InputUser(List<string> first_name, List<string> last_name, List<string> password)
         {
+            // cek password
+            int legalPass = 0;
+
             //input first_name
             Console.Write("First Name : ");
             first_name.Add(Console.ReadLine());
@@ -86,9 +89,25 @@ namespace Authentication
             Console.Write("Last Name : ");
             last_name.Add(Console.ReadLine());
 
-            //input password
-            Console.Write("Password : ");
-            password.Add(Console.ReadLine());
+            do
+            {
+                //input password
+                Console.Write("password : ");
+                string pass = Console.ReadLine();
+                legalPass = cekPassword(pass);
+
+                if (legalPass == 1)
+                {
+                    password.Add(pass);
+                    legalPass = 2;
+                }
+                else
+                {
+                    Console.WriteLine("Password must have at least 8 characters\r\n with at least one Capital letter, at least one lower case letter and at least one number.");
+                }
+
+            } while (legalPass != 2);
+
 
         }
         static void TampilUser(List<string> first_name, List<string> last_name, List<string> password)
@@ -98,7 +117,7 @@ namespace Authentication
             for (int i = 0; i < first_name.Count; i++)
             {
                 int id = i + 1;
-                Console.WriteLine("ID       : " + id );
+                Console.WriteLine("ID       : " + id);
                 Console.WriteLine("Name     : " + first_name[i] + " " + last_name[i]);
                 Console.WriteLine("Username : " + last_name[i]);
                 Console.WriteLine("Password : " + password[i]);
@@ -106,13 +125,13 @@ namespace Authentication
             }
             Console.WriteLine("=============");
         }
-        static void LoginUser ()
+        static void LoginUser(List<string> username, List<string> password)
         {
             Console.WriteLine("LOGIN");
 
             // input username
             Console.Write("USERNAME : ");
-            string username = Console.ReadLine();
+            string usernm = Console.ReadLine();
 
             // input Password
             Console.Write("PASSWORD : ");
@@ -164,9 +183,9 @@ namespace Authentication
             string cekNama = Console.ReadLine();
             int cekData = 0;
 
-            for(int i = 0; i < first_name.Count; i++)
+            for (int i = 0; i < first_name.Count; i++)
             {
-                if(cekNama == first_name[i] || cekNama == last_name[i])
+                if (cekNama == first_name[i] || cekNama == last_name[i])
                 {
                     int id = i + 1;
                     Console.WriteLine("=============");
@@ -175,11 +194,39 @@ namespace Authentication
                     Console.WriteLine("Password : " + password[i]);
                     cekData = 1;
                 }
-                if (cekData == 0) 
+                if (cekData == 0)
                 {
                     Console.WriteLine("User Not Found!!!");
                 }
             }
+        }
+        static int cekPassword(string pass)
+        {
+            int legalPass = 0;
+            bool upper = false;
+            bool number = false;
+            bool length = false;
+            if(pass.Length >= 8)
+            {
+                length= true;
+            }
+            if(pass.Any(char.IsUpper))
+            {
+                upper= true;
+            }
+            if(pass.Any(char.IsNumber))
+            {
+                number= true;
+            }
+            if(upper && number && length)
+            {
+                legalPass= 1;
+            }
+            else
+            {
+                legalPass= 0;
+            }
+            return legalPass;
         }
     }
 }

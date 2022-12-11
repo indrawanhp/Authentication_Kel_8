@@ -30,11 +30,11 @@
                     case 1:
                         Console.Clear();
                         Console.WriteLine();
-                        InputUser(first_name, last_name, password);
+                        InputUser(first_name, last_name, username, password);
                         break;
                     case 2:
                         Console.Clear();
-                        TampilUser(first_name, last_name, password);
+                        TampilUser(first_name, last_name, username, password);
                         Console.WriteLine();
                         Console.WriteLine("Menu");
                         Console.WriteLine("1. Edit User");
@@ -56,7 +56,7 @@
                         break;
                     case 3:
                         Console.Clear();
-                        SearchUser(first_name, last_name, password);
+                        SearchUser(first_name, last_name, username, password);
                         break;
                     case 4:
                         Console.Clear();
@@ -76,18 +76,25 @@
                 input2 = Convert.ToInt32(Console.ReadLine());
             } while (input2 != 2);
         }
-        static void InputUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void InputUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
+            //unutuk username
+            string CharUserName1 = null; 
+            string CharUserName2 = null;
+            string usernameFix = null;
+
             // cek password
             int legalPass = 0;
 
             //input first_name
             Console.Write("First Name : ");
-            first_name.Add(Console.ReadLine());
+            string fn = Console.ReadLine();
+            first_name.Add(fn);
 
             //input last_name
             Console.Write("Last Name : ");
-            last_name.Add(Console.ReadLine());
+            string ln = Console.ReadLine();
+            last_name.Add(ln);
 
             do
             {
@@ -98,6 +105,19 @@
 
                 if (legalPass == 1)
                 {
+                    char[] charactersFirst = fn.ToCharArray();
+                    foreach (char userChar in charactersFirst)
+                    {
+                        CharUserName1 = string.Concat(charactersFirst[0], charactersFirst[1]);
+                    }
+                    char[] charactersLast = ln.ToCharArray();
+                    foreach (char userChar in charactersLast)
+                    {
+                        CharUserName2 = string.Concat(charactersLast[0], charactersLast[1]);
+                    }
+
+                    usernameFix = CharUserName1 + CharUserName2;
+                    username.Add(usernameFix);
                     password.Add(pass);
                     legalPass = 2;
                 }
@@ -110,7 +130,7 @@
 
 
         }
-        static void TampilUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void TampilUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.WriteLine("==SHOW USER==");
             Console.WriteLine("=============");
@@ -119,7 +139,7 @@
                 int id = i + 1;
                 Console.WriteLine("ID       : " + id);
                 Console.WriteLine("Name     : " + first_name[i] + " " + last_name[i]);
-                Console.WriteLine("Username : " + last_name[i]);
+                Console.WriteLine("Username : " + username[i]);
                 Console.WriteLine("Password : " + password[i]);
                 Console.WriteLine();
             }
@@ -176,7 +196,7 @@
             }
             Console.ReadLine();
         }
-        static void SearchUser(List<string> first_name, List<string> last_name, List<string> password)
+        static void SearchUser(List<string> first_name, List<string> last_name, List<string> username, List<string> password)
         {
             Console.WriteLine("==Cari Akun==");
             Console.Write("Masukan Nama : ");
@@ -191,6 +211,7 @@
                     Console.WriteLine("=============");
                     Console.WriteLine("ID       : " + id);
                     Console.WriteLine("Nama     : " + first_name[i] + " " + last_name[i]);
+                    Console.WriteLine("Username : " + username[i]);
                     Console.WriteLine("Password : " + password[i]);
                     cekData = 1;
                 }
